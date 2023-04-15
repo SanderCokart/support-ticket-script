@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -46,8 +47,8 @@ class AuthController extends Controller
         ]);
     }
 
-    public function user(): User
+    public function user(Request $request): User
     {
-        return auth()->user();
+        return $request->user();
     }
 }

@@ -18,5 +18,5 @@ Route::apiResource('tickets.responses', ResponseController::class)
 
 Route::post('logout', [AuthController::class, 'logout'])
     ->name('logout');
-Route::post('user', [AuthController::class, 'user'])
+Route::get('user', [AuthController::class, 'user'])
     ->name('user');

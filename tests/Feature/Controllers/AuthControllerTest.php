@@ -83,3 +83,19 @@ test('user can logout', function () {
     $response->assertStatus(401);
 
 });
+
+test('user can request his data', function (User $user) {
+    $response = $this->getJson(route('api.v1.auth.user', absolute: false));
+
+    $response->assertStatus(200);
+    $response->assertJsonStructure([
+        'id',
+        'first_name',
+        'last_name',
+        'telephonenumber',
+        'email',
+        'created_at',
+        'updated_at',
+    ]);
+
+})->with('user');
