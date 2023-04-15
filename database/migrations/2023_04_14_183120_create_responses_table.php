@@ -8,7 +8,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('responses', function (Blueprint $table) {
-            $table->id();
+            $table->id()->index();
             $table->text('content');
             $table->timestamps();
 

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TicketRequest;
 use App\Models\Ticket;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class TicketController extends Controller
 {
@@ -13,13 +13,8 @@ class TicketController extends Controller
         return Ticket::all();
     }
 
-    public function store(Request $request): Ticket
+    public function store(TicketRequest $request): Ticket
     {
-        $request->validate([
-            'title'   => ['required', 'max:255'],
-            'content' => ['required', 'max:4294967295'],
-        ]);
-
         return Ticket::create($request->validated());
     }
 
@@ -28,22 +23,17 @@ class TicketController extends Controller
         return $ticket;
     }
 
-    public function update(Request $request, Ticket $ticket): Ticket
+    public function update(TicketRequest $request, Ticket $ticket): Ticket
     {
-        $request->validate([
-            'title'   => ['required', 'string', 'max:255'],
-            'content' => ['required', 'string', 'max:4294967295'],
-        ]);
-
         $ticket->update($request->validated());
 
         return $ticket;
     }
 
-    public function destroy(Ticket $ticket): JsonResponse
+    public function destroy(Ticket $ticket): Response
     {
         $ticket->delete();
 
-        return response()->json();
+        return response()->noContent();
     }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
@@ -12,35 +13,31 @@ class CategoryController extends Controller
         return Category::all();
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request): Category
     {
-        $request->validate([
-            'title' => ['required'],
-        ]);
-
         return Category::create($request->validated());
     }
 
-    public function show(Category $category)
+    public function show(Category $category): Category
     {
         return $category;
     }
 
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category): Category
     {
-        $request->validate([
-            'title' => ['required'],
-        ]);
-
         $category->update($request->validated());
 
         return $category;
     }
 
-    public function destroy(Category $category)
+    public function destroy(Category $category): Response
     {
+        if ($category->tickets()->exists()) {
+            abort(422, 'Category is used by tickets');
+        }
+
         $category->delete();
 
-        return response()->json();
+        return response()->noContent();
     }
 }

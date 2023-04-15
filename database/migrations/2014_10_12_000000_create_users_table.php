@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->boolean('is_admin')->default(false);
             $table->string('password');
-            $table->string('telephonenumber');
+            $table->string('telephonenumber')->unique();
             $table->rememberToken();
             $table->timestamps();
         });

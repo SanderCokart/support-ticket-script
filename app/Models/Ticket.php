@@ -14,6 +14,9 @@ class Ticket extends Model
     protected $fillable = [
         'title',
         'content',
+        'status_id',
+        'category_id',
+        'user_id',
     ];
 
     public function user(): BelongsTo
@@ -35,8 +38,4 @@ class Ticket extends Model
     {
         return $this->hasMany(Response::class);
     }
-    //<editor-fold desc="scopes">
-
-    //</editor-fold>
-
 }

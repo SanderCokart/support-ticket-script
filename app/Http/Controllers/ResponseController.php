@@ -2,45 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ResponseRequest;
 use App\Models\Response;
+use App\Models\Ticket;
 use Illuminate\Http\Request;
 
 class ResponseController extends Controller
 {
-    public function index()
+
+    public function store(ResponseRequest $request, Ticket $ticket): Response
     {
-        return Response::all();
+        return $ticket->responses()->create($request->validated());
     }
 
-    public function store(Request $request)
+    public function update(ResponseRequest $request, Ticket $ticket, Response $response): Response
     {
-        $request->validate([
-            'content' => ['required', 'max:65535'],
-        ]);
-
-        return Response::create($request->validated());
-    }
-
-    public function show(Response $response)
-    {
-        return $response;
-    }
-
-    public function update(Request $request, Response $response)
-    {
-        $request->validate([
-            'content' => ['required'],
-        ]);
-
         $response->update($request->validated());
 
         return $response;
     }
 
-    public function destroy(Response $response)
+    public function destroy(Request $request, Ticket $ticket, Response $response): \Illuminate\Http\Response
     {
         $response->delete();
 
-        return response()->json();
+        return response()->noContent();
     }
 }
