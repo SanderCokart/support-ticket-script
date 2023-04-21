@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .input-base {
+        @apply w-full rounded-lg border-2 px-4 py-2 text-lg text-black;
+    }
+
+    .title {
+        @apply text-3xl font-bold;
+    }
+}

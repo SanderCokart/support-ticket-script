@@ -3,6 +3,10 @@ import {CreateTicket, Dashboard, IndexTickets, Login, ShowTicket, Account} from 
 const routes = [
     // Guest
     { path: '/', redirect: '/login' },
+    { path: '/login', component: Login, name: 'login', meta: { requiresGuest: true } },
+    { path: '/dashboard', component: Dashboard, name: 'dashboard', meta: { requiresAuth: true } },
+
+
     // { path: '/login', component: Login, name: 'login', meta: { requiresGuest: true } },
 
     // Dashboard
