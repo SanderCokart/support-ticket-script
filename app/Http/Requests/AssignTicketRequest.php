@@ -4,12 +4,12 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class AssignTicketRequest extends FormRequest
 {
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'],
+            'assignee_id' => ['nullable', 'exists:users,id,is_admin,1'],
         ];
     }
 }
