@@ -6,7 +6,7 @@ const routes = [
     { path: '/login', component: Login, name: 'login', meta: { requiresGuest: true } },
     { path: '/dashboard', component: Dashboard, name: 'dashboard', meta: { requiresAuth: true } },
     { path: '/dashboard/tickets', component: IndexTickets, name: 'tickets-index', meta: { requiresAuth: true } },
-
+    { path: '/dashboard/tickets/:id', component: ShowTicket, name: 'tickets-show', props: true, meta: { requiresAuth: true } },
     // Account
     { path: '/dashboard/account', component: Account, name: 'account', meta: { requiresAuth: true } }
 
