@@ -1,4 +1,3 @@
-import './bootstrap';
 import '../sass/app.scss';
 
 import Root from '@/components/Root.vue';
