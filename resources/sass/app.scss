@@ -2,9 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+
+@layer base {
+    body {
+        @apply overflow-x-hidden font-sans text-white antialiased bg-primary;
+
+        input, textarea, select {
+            @apply text-black;
+        }
+    }
+
+    dialog {
+        @apply inset-0 h-full w-full place-items-center bg-black/50 backdrop-blur-sm;
+        &[open] {
+            @apply grid;
+        }
+
+        & > div {
+            @extend body;
+            @apply rounded-lg border-2 p-8 shadow-xl bg-primaryLight border-accent min-w-screen-xs;
+        }
+    }
+
+    .table-bottom-border {
+        background: linear-gradient(to top, theme("colors.accent"), theme("colors.accent") 2px, transparent 1px, transparent 100%);
+    }
+}
+
+
 @layer components {
     .input-base {
-        @apply w-full rounded-lg border-2 px-4 py-2 text-lg text-black;
+        @apply w-full rounded-lg border-2 px-4 py-2 text-lg;
     }
 
     .title {
