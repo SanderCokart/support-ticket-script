@@ -1,16 +1,17 @@
 import './bootstrap';
 import '../sass/app.scss';
 
-import App from '@/components/App.vue';
+import Root from '@/components/Root.vue';
 import {createApp} from 'vue';
-import {createRouter, createWebHistory} from 'vue-router';
-import routes from '@/routes/routes';
+import {AxiosPlugin} from '@/plugins/axios';
+import routes from '@/router';
+import {createWebHistory, createRouter} from 'vue-router';
 
 const router = createRouter({
     history: createWebHistory(),
     routes
 });
 
-createApp(App)
-    .use(router)
+createApp(Root)
+    .use(AxiosPlugin, { baseURL: import.meta.env.VITE_API_URL })
     .mount('#app');
