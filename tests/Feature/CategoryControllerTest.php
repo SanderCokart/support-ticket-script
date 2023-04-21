@@ -7,7 +7,7 @@ use App\Models\User;
 it('can get all categories', function (User $admin) {
     $response = $this->getJson(route('api.v1.auth.categories.index', absolute: false));
     $response->assertStatus(200);
-    $response->assertJsonCount(3);
+    $response->assertJsonCount(Category::count());
     $response->assertJsonStructure([
         '*' => [
             'id',
