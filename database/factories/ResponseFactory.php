@@ -14,9 +14,11 @@ class ResponseFactory extends Factory
     public function definition(): array
     {
         return [
-            'content'   => $this->faker->word(),
+            'content'   => $this->faker->paragraph,
             'user_id'   => User::factory(),
             'ticket_id' => Ticket::factory(),
+            'created_at' => $created_at = $this->faker->dateTimeBetween('-3 months', '-2 months'),
+            'updated_at' => $created_at,
         ];
     }
 }

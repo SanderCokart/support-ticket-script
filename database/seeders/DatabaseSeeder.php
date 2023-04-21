@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Response;
+use App\Models\Ticket;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -13,7 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            StatusSeeder::class,
+            CategorySeeder::class,
+        ]);
 
         User::factory()->create([
             'first_name'      => 'Test',
@@ -23,11 +28,21 @@ class DatabaseSeeder extends Seeder
             'is_admin'        => true,
         ]);
 
-        $this->call([
-            StatusSeeder::class,
-            CategorySeeder::class,
-            TicketSeeder::class,
-        ]);
+        User::factory()
+            ->count(100)
+            ->has(Ticket::factory()
+                ->count(3)
+                ->has(
+                    Response::factory()
+                        ->count(3)
+                        ->state(function (array $attributes, Ticket $ticket) {
+                            return [
+                                'user_id' => $ticket->user_id,
+                            ];
+                        })
+                )
+            )
+            ->create();
 
     }
 }

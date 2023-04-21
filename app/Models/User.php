@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,6 +29,10 @@ class User extends Authenticatable
         'telephonenumber',
     ];
 
+    protected $appends = [
+        'full_name',
+    ];
+
     protected $hidden = [
         'password',
         'remember_token',
@@ -43,5 +49,22 @@ class User extends Authenticatable
     public function responses(): HasMany
     {
         return $this->hasMany(Response::class);
+    }
+
+    public function fullName(): Attribute
+    {
+        return new Attribute(
+            get: fn() => $this->first_name . ' ' . $this->last_name,
+        );
+    }
+
+    public function assignedTickets(): HasMany
+    {
+        return $this->hasMany(Ticket::class, 'assignee_id');
+    }
+
+    public function scopeAdmins(Builder $query): Builder
+    {
+        return $query->whereIsAdmin(true);
     }
 }

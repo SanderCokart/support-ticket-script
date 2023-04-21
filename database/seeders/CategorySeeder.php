@@ -9,10 +9,22 @@ class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        Category::factory()->createMany([
-            ['title' => 'Test Category 1'],
-            ['title' => 'Test Category 2'],
-            ['title' => 'Test Category 3'],
+        $categories = collect([
+            'Hardware',
+            'Software',
+            'Network',
+            'Other',
+            'Headphones',
+            'Speakers',
+            'Monitors',
+            'Mice',
+            'Keyboards',
+            'Printers',
+            'Scanners',
+            'Projectors',
+            'Laptops',
         ]);
+
+        Category::factory()->createMany($categories->map(fn ($name) => ['title' => $name])->toArray());
     }
 }
