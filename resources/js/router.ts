@@ -6,6 +6,8 @@ const routes = [
     { path: '/login', component: Login, name: 'login', meta: { requiresGuest: true } },
     { path: '/dashboard', component: Dashboard, name: 'dashboard', meta: { requiresAuth: true } },
 
+    // Account
+    { path: '/dashboard/account', component: Account, name: 'account', meta: { requiresAuth: true } }
 
     // { path: '/login', component: Login, name: 'login', meta: { requiresGuest: true } },
 
