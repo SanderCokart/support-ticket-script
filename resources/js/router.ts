@@ -5,6 +5,7 @@ const routes = [
     { path: '/', redirect: '/login' },
     { path: '/login', component: Login, name: 'login', meta: { requiresGuest: true } },
     { path: '/dashboard', component: Dashboard, name: 'dashboard', meta: { requiresAuth: true } },
+    { path: '/dashboard/tickets', component: IndexTickets, name: 'tickets-index', meta: { requiresAuth: true } },
 
     // Account
     { path: '/dashboard/account', component: Account, name: 'account', meta: { requiresAuth: true } }
