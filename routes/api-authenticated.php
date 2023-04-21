@@ -12,9 +12,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::group([], function () {
-    Route::apiResource('statuses', StatusController::class)
-        ->only('index');
-
     Route::apiResource('categories', CategoryController::class);
 
     Route::putPatch('/tickets/{ticket}/assign', [TicketController::class, 'assign'])
