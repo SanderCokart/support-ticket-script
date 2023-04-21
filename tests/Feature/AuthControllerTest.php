@@ -3,7 +3,7 @@
 use App\Models\User;
 
 test('user can register', function () {
-    $response = $this->postJson(route('api.v1.guest.register', absolute: false),
+    $response = $this->postJson(route('api.v1.guest.account.register', absolute: false),
         array_merge(User::factory()->make()->toArray(), [
             'password'              => 'password',
             'password_confirmation' => 'password',
@@ -34,7 +34,7 @@ test('user can register', function () {
 test('user can login', function () {
     $user = User::factory()->create();
 
-    $response = $this->postJson(route('api.v1.guest.login', absolute: false), [
+    $response = $this->postJson(route('api.v1.guest.account.login', absolute: false), [
         'email'    => $user->email,
         'password' => 'password',
     ]);
@@ -68,7 +68,7 @@ test('user can logout', function () {
 
     $response = $this->withHeaders([
         'Authorization' => 'Bearer ' . $token,
-    ])->postJson(route('api.v1.auth.logout', absolute: false));
+    ])->postJson(route('api.v1.auth.account.logout', absolute: false));
 
     $response->assertStatus(200);
 
@@ -78,14 +78,14 @@ test('user can logout', function () {
 
     $response = $this->withHeaders([
         'Authorization' => 'Bearer ' . $token,
-    ])->postJson(route('api.v1.auth.logout', absolute: false));
+    ])->postJson(route('api.v1.auth.account.logout', absolute: false));
 
     $response->assertStatus(401);
 
 });
 
 test('user can request his data', function (User $user) {
-    $response = $this->getJson(route('api.v1.auth.user', absolute: false));
+    $response = $this->getJson(route('api.v1.auth.account.user', absolute: false));
 
     $response->assertStatus(200);
     $response->assertJsonStructure([
